@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="inc/style.css">
+
+	<title>Sprite measurement</title>
+
+	<script src="inc/draw/Color.js"></script>
+	<script src="inc/draw/shapes.js"></script>
+	<script src="inc/draw/style.js"></script>
+	<script src="inc/draw/text.js"></script>
+	<script src="inc/Vector.js"></script>
+	<script src="inc/initialize.js"></script>
+</head>
+<body>
+	<div id="loadImage">
+		<label>Charger une nouvelle image : </label>
+		<input id="imageLoader" placeholder="Adresse de l'image"></input>
+		<button id="loadButton">Charger</button>
+	</div>
+
+	<div id="canvasContainer">
+		<canvas id="myCanvas" width=100 height=100>Le canvas ne s'est pas chargé correctement.</canvas>
+	</div>
+	
+	<div id="controlPane">
+		<div id="sizesControl">
+			<div id="imageSizeControl">
+				<label>Taille de l'image : </label>
+				<input id="imageWidth" placeholder="largeur" class="numberInput" disabled></input>
+				<input id="imageHeight" placeholder="hauteur" class="numberInput" disabled></input>
+			</div>
+			<div id="canvasSizeControl">
+				<div id="canvasSizeRawSizes">
+					<label>Taille du canvas : </label>
+					<input id="canvasWidth" placeholder="largeur" class="numberInput"></input>
+					<input id="canvasHeight" placeholder="hauteur" class="numberInput"></input>
+					<button id="reinitiateCanvasSizeButton">Réinitialiser</button>
+				</div>
+				<div id="canvasSizeMultiplicatorContainer">
+					<label>Multiplicateur : </label>
+					<input id="canvasSizeMultiplicator" placeholder="1"></input>
+				</div>
+			</div>
+		</div>
+		<div id="gridControlContainer">
+			<div id="gridPosControl">
+				<label>Position de la grille : </label>
+				<input id="xGrid" placeholder="x" class="numberInput"></input>
+				<input id="yGrid" placeholder="y" class="numberInput"></input>
+			</div>
+			<div id="spritesDimControl">
+				<label>Dimensions des sprites : </label>
+				<input id="xScale" placeholder="largeur" class="numberInput"></input>
+				<input id="yScale" placeholder="hauteur" class="numberInput"></input>
+			</div>
+			<div id="separatorsDimControl">	
+				<label>Dimensions des séparateurs : </label>
+				<input id="xSeparator" placeholder="largeur" class="numberInput"></input>
+				<input id="ySeparator" placeholder="hauteur" class="numberInput"></input>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

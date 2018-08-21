@@ -1,0 +1,52 @@
+
+body {
+	
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+canvas {
+	border-radius: 3px;
+	border: 0px solid black;
+	cursor: pointer;
+}	
+
+div {
+	margin-top: 10px;
+}
+
+.numberInput {
+	width: 50px;
+}
+
+#loadImage {
+	margin-bottom: 10px;
+}
+
+#canvasContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	min-height: 400px;
+}
+
+#controlPane {
+	display: flex;
+	
+}
+
+#canvasSizeMultiplicator {
+	width: 25px;
+}
+
+#gridControlContainer {
+	margin-left: 20px
+}
+
+#imageLoader {
+	width: 300px;
+}
