@@ -23,7 +23,7 @@ const FONTSIZE_MODE = {
 }
 
 function font(size, fontname, sizeMode=FONTSIZE_MODE.FONTSIZE, ctx=targetContext) {
-    if(sizeMode == FONTSIZE_MODE.WIDTH)
+    if(sizeMode === FONTSIZE_MODE.WIDTH)
         size *= WIDTH_COEF;
     else if(sizeMode = FONTSIZE_MODE.HEIGHT)
         size *= HEIGHT_COEF;
@@ -59,13 +59,13 @@ function textFitInBox(xBoxLeft, yBoxTop, boxWidth, boxHeight, str, ctx=targetCon
 function getFontDimensions(size, sizeMode) {
 	let fontDim = new SimpleVector();
 	
-	if(sizeMode == FONTSIZE_MODE.WIDTH) {
+	if(sizeMode === FONTSIZE_MODE.WIDTH) {
 		fontDim.x = size;
 		fontDim.y = getHeightOfChar(fontDim.x, FONTSIZE_MODE.WIDTH);
-	} else if(sizeMode == FONTSIZE_MODE.HEIGHT) {
+	} else if(sizeMode === FONTSIZE_MODE.HEIGHT) {
 		fontDim.y = size;
 		fontDim.x = getWidthOfChar(fontDim.y, FONTSIZE_MODE.HEIGHT);
-	} else if(sizeMode == FONTSIZE_MODE.FONTSIZE) {
+	} else if(sizeMode === FONTSIZE_MODE.FONTSIZE) {
 		fontDim.x = getWidthOfChar(size, FONTSIZE_MODE.FONTSIZE);
 		fontDim.y = getHeightOfChar(size, FONTSIZE_MODE.FONTSIZE);
 	} else
@@ -76,27 +76,27 @@ function getFontDimensions(size, sizeMode) {
 }
 
 function getFontSize(size, sizeMode) {
-    if(sizeMode == FONTSIZE_MODE.WIDTH)
+    if(sizeMode === FONTSIZE_MODE.WIDTH)
         return size*WIDTH_COEF
-    else if (sizeMode == FONTSIZE_MODE.HEIGHT)
+    else if (sizeMode === FONTSIZE_MODE.HEIGHT)
         return size*HEIGHT_COEF;
     else
         return error("The value entered is wrong, it's necessary to know the height or the width of a caractere to deduce the fontsize !", 1);
 }
 
 function getWidthOfChar(size, sizeMode=FONTSIZE_MODE.FONTSIZE) {
-    if(sizeMode == FONTSIZE_MODE.FONTSIZE)
+    if(sizeMode === FONTSIZE_MODE.FONTSIZE)
         return size/WIDTH_COEF;
-    else if(sizeMode == FONTSIZE_MODE.HEIGHT)
+    else if(sizeMode === FONTSIZE_MODE.HEIGHT)
         return size*HEIGHT_COEF/WIDTH_COEF;
     else
         return error("The value entered is wrong, it's necessary to know the fontsize or the height of a caractere to deduce its width !", 1);
 }
 
 function getHeightOfChar(size, sizeMode=FONTSIZE_MODE.FONTSIZE) {
-    if(sizeMode == FONTSIZE_MODE.FONTSIZE)
+    if(sizeMode === FONTSIZE_MODE.FONTSIZE)
         return size/HEIGHT_COEF;
-    else if(sizeMode == FONTSIZE_MODE.WIDTH)
+    else if(sizeMode === FONTSIZE_MODE.WIDTH)
         return size*WIDTH_COEF/HEIGHT_COEF; 
     else
         return error("The value entered is wrong, it's necessary to know the fontsize or the width of a caractere to deduce its height !", 1);

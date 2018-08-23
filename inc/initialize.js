@@ -103,25 +103,25 @@ function loadImage() {
 
 function draw() {
 	
-	let gridX = (xGridInput.value != "")? parseInt(xGridInput.value) : 0;
-	let gridY = (yGridInput.value != "")? parseInt(yGridInput.value) : 0;
+	let gridX = (xGridInput.value !== "")? parseInt(xGridInput.value) : 0;
+	let gridY = (yGridInput.value !== "")? parseInt(yGridInput.value) : 0;
 
-	let scaleX = (xScaleInput.value != "" && parseInt(xScaleInput.value) > 0)? parseInt(xScaleInput.value) : 10;
-	let scaleY = (yScaleInput.value != "" && parseInt(yScaleInput.value) > 0)? parseInt(yScaleInput.value) : 10;
+	let scaleX = (xScaleInput.value !== "" && parseInt(xScaleInput.value) > 0)? parseInt(xScaleInput.value) : 10;
+	let scaleY = (yScaleInput.value !== "" && parseInt(yScaleInput.value) > 0)? parseInt(yScaleInput.value) : 10;
 
-	let separatorX = (xSeparatorInput.value != "" && parseInt(xSeparatorInput.value) >= 0)? parseInt(xSeparatorInput.value) : 0;
-	let separatorY = (ySeparatorInput.value != "" && parseInt(ySeparatorInput.value) >= 0)? parseInt(ySeparatorInput.value) : 0;
+	let separatorX = (xSeparatorInput.value !== "" && parseInt(xSeparatorInput.value) >= 0)? parseInt(xSeparatorInput.value) : 0;
+	let separatorY = (ySeparatorInput.value !== "" && parseInt(ySeparatorInput.value) >= 0)? parseInt(ySeparatorInput.value) : 0;
 
-	if(canvasSizeMultiplicator.value != "") {
+	if(canvasSizeMultiplicator.value !== "") {
 		canvas.width = parseInt(canvasSizeMultiplicator.value)*currentImg.width;
 		canvas.height = parseInt(canvasSizeMultiplicator.value)*currentImg.height;
 
 		widthCanvasInput.value = canvas.width;
 		heightCanvasInput.value = canvas.height;
 	}
-	
-	canvas.width = (widthCanvasInput.value != "" && parseInt(widthCanvasInput.value) > 0)? parseInt(widthCanvasInput.value): 700;
-	canvas.height = (heightCanvasInput.value != "" && parseInt(heightCanvasInput.value) > 0)? parseInt(heightCanvasInput.value): 350;
+
+	canvas.width = (widthCanvasInput.value !== "" && parseInt(widthCanvasInput.value) > 0)? parseInt(widthCanvasInput.value): 700;
+	canvas.height = (heightCanvasInput.value !== "" && parseInt(heightCanvasInput.value) > 0)? parseInt(heightCanvasInput.value): 350;
 	
 	drawImage(currentImg, 0, 0, currentImg.width, currentImg.height, 0, 0, canvas.width, canvas.height);
 

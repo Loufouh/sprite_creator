@@ -58,7 +58,7 @@ function line(x1, y1, x2, y2, ctx=targetContext) {
 
 
 function drawImage(img, sx, sy, sWidth=img.width, sHeight=img.height, dx, dy, dWidth, dHeight, ctx=targetContext) {
-	if(dx == undefined) {
+	if(dx === undefined) {
 		ctx.drawImage(img, sx, sy, sWidth, sHeight);
 	} else {
 		ctx.drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
