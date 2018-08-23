@@ -36,25 +36,25 @@ function init() {
 function initElements() {
 	initCanvas();
 	
-	widthImageInput = document.getElementById("imageWidth");
-	heightImageInput = document.getElementById("imageHeight");
+	widthImageInput = document.querySelector("#imageWidth");
+	heightImageInput = document.querySelector("#imageHeight");
 
-	widthCanvasInput = document.getElementById("canvasWidth");
-	heightCanvasInput = document.getElementById("canvasHeight");
-	reinitiateCanvasSizeButton = document.getElementById("reinitiateCanvasSizeButton");
-	canvasSizeMultiplicator = document.getElementById("canvasSizeMultiplicator");
+	widthCanvasInput = document.querySelector("#canvasWidth");
+	heightCanvasInput = document.querySelector("#canvasHeight");
+	reinitiateCanvasSizeButton = document.querySelector("#reinitiateCanvasSizeButton");
+	canvasSizeMultiplicator = document.querySelector("#canvasSizeMultiplicator");
 	
-	xGridInput = document.getElementById("xGrid");
-	yGridInput = document.getElementById("yGrid");
+	xGridInput = document.querySelector("#xGrid");
+	yGridInput = document.querySelector("#yGrid");
 
-	xScaleInput = document.getElementById("xScale");
-	yScaleInput = document.getElementById("yScale");
+	xScaleInput = document.querySelector("#xScale");
+	yScaleInput = document.querySelector("#yScale");
 	
-	xSeparatorInput = document.getElementById("xSeparator");
-	ySeparatorInput = document.getElementById("ySeparator");
+	xSeparatorInput = document.querySelector("#xSeparator");
+	ySeparatorInput = document.querySelector("#ySeparator");
 	
-	inputImage = document.getElementById("imageLoader");
-	loadButton = document.getElementById("loadButton");
+	inputImage = document.querySelector("#imageLoader");
+	loadButton = document.querySelector("#loadButton");
 }
 
 function declareListeners() {
@@ -81,7 +81,7 @@ function declareListeners() {
 }
 
 function initCanvas() {
-	canvas = document.getElementById("myCanvas");
+	canvas = document.querySelector("#myCanvas");
 	setTargetContext(canvas.getContext("2d"));
 	
 	canvas.width = Math.floor(window.innerWidth/2);
