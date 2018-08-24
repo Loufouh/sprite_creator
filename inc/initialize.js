@@ -100,8 +100,7 @@ function loadImage() {
 		draw();
 	};
 	currentImg.src = blobURL;
-
-
+	inputImage.value = "";
 }
 
 function draw() {
