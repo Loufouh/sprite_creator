@@ -83,56 +83,61 @@ function declareListeners() {
 function initCanvas() {
 	canvas = document.querySelector("#myCanvas");
 	setTargetContext(canvas.getContext("2d"));
-	
-	canvas.width = Math.floor(window.innerWidth/2);
-	canvas.height = canvas.width/1.62;
+
+	canvas.width = canvas.height*1.618;
 }
 
 function loadImage() {
+	let blobURL = URL.createObjectURL(inputImage.files[0]);
+
 	currentImg = new Image();
 	currentImg.onload = function() {
+		URL.revokeObjectURL(blobURL);
 		widthImageInput.value = currentImg.width;
 		heightImageInput.value = currentImg.height;
 		widthCanvasInput.value = currentImg.width;
 		heightCanvasInput.value = currentImg.height;
 		draw();
 	};
-	currentImg.src = inputImage.value;
+	currentImg.src = blobURL;
+
 
 }
 
 function draw() {
+	if(currentImg != undefined) {
+		let gridX = (xGridInput.value !== "")? parseInt(xGridInput.value) : 0;
+		let gridY = (yGridInput.value !== "")? parseInt(yGridInput.value) : 0;
 	
-	let gridX = (xGridInput.value !== "")? parseInt(xGridInput.value) : 0;
-	let gridY = (yGridInput.value !== "")? parseInt(yGridInput.value) : 0;
-
-	let scaleX = (xScaleInput.value !== "" && parseInt(xScaleInput.value) > 0)? parseInt(xScaleInput.value) : 10;
-	let scaleY = (yScaleInput.value !== "" && parseInt(yScaleInput.value) > 0)? parseInt(yScaleInput.value) : 10;
-
-	let separatorX = (xSeparatorInput.value !== "" && parseInt(xSeparatorInput.value) >= 0)? parseInt(xSeparatorInput.value) : 0;
-	let separatorY = (ySeparatorInput.value !== "" && parseInt(ySeparatorInput.value) >= 0)? parseInt(ySeparatorInput.value) : 0;
-
-	if(canvasSizeMultiplicator.value !== "") {
-		canvas.width = parseInt(canvasSizeMultiplicator.value)*currentImg.width;
-		canvas.height = parseInt(canvasSizeMultiplicator.value)*currentImg.height;
-
-		widthCanvasInput.value = canvas.width;
-		heightCanvasInput.value = canvas.height;
+		let scaleX = (xScaleInput.value !== "" && parseInt(xScaleInput.value) > 0)? parseInt(xScaleInput.value) : 10;
+		let scaleY = (yScaleInput.value !== "" && parseInt(yScaleInput.value) > 0)? parseInt(yScaleInput.value) : 10;
+	
+		let separatorX = (xSeparatorInput.value !== "" && parseInt(xSeparatorInput.value) >= 0)? parseInt(xSeparatorInput.value) : 0;
+		let separatorY = (ySeparatorInput.value !== "" && parseInt(ySeparatorInput.value) >= 0)? parseInt(ySeparatorInput.value) : 0;
+	
+		if(canvasSizeMultiplicator.value !== "") {
+			canvas.width = parseInt(canvasSizeMultiplicator.value)*currentImg.width;
+			canvas.height = parseInt(canvasSizeMultiplicator.value)*currentImg.height;
+		
+			widthCanvasInput.value = canvas.width;
+			heightCanvasInput.value = canvas.height;
+		}
+	
+		canvas.width = (widthCanvasInput.value !== "" && parseInt(widthCanvasInput.value) > 0)? parseInt(widthCanvasInput.value): 700;
+		canvas.height = (heightCanvasInput.value !== "" && parseInt(heightCanvasInput.value) > 0)? parseInt(heightCanvasInput.value): 350;
+		
+		drawImage(currentImg, 0, 0, currentImg.width, currentImg.height, 0, 0, canvas.width, canvas.height);
+	
+		stroke(0);
+		strokeWeight(1);
+	
+		grid(new Vector(gridX, gridY),
+		     new Vector(scaleX, scaleY),
+		     new Vector(separatorX, separatorY),
+		     new Vector(canvas.width, canvas.height));
+	} else {
+		background(52);
 	}
-
-	canvas.width = (widthCanvasInput.value !== "" && parseInt(widthCanvasInput.value) > 0)? parseInt(widthCanvasInput.value): 700;
-	canvas.height = (heightCanvasInput.value !== "" && parseInt(heightCanvasInput.value) > 0)? parseInt(heightCanvasInput.value): 350;
-	
-	drawImage(currentImg, 0, 0, currentImg.width, currentImg.height, 0, 0, canvas.width, canvas.height);
-
-	stroke(0);
-	strokeWeight(1);
-
-	grid(new Vector(gridX, gridY),
-	     new Vector(scaleX, scaleY),
-	     new Vector(separatorX, separatorY),
-	     new Vector(canvas.width, canvas.height));
-	
 }
 
 
