@@ -10,6 +10,8 @@
 	<script src="inc/draw/shapes.js"></script>
 	<script src="inc/draw/style.js"></script>
 	<script src="inc/draw/text.js"></script>
+	<script src="inc/error.js"></script>
+	<script src="inc/element_state.js"></script>
 	<script src="inc/Vector.js"></script>
 	<script src="inc/initialize.js"></script>
 </head>
@@ -17,7 +19,6 @@
 	<div id="loadImage">
 		<label>Charger une nouvelle image : </label>
 		<input type="file" id="imageLoader" accept=".png, .jpg, .jpeg">
-		<button id="loadButton">Charger</button>
 	</div>
 
 	<div id="canvasContainer">
@@ -25,43 +26,32 @@
 	</div>
 	
 	<div id="controlPane">
-		<div id="sizesControl">
-			<div id="imageSizeControl">
-				<label>Taille de l'image : </label>
-				<input id="imageWidth" placeholder="largeur" class="numberInput" disabled>
-				<input id="imageHeight" placeholder="hauteur" class="numberInput" disabled>
-			</div>
+		<section id="canvasControl">
 			<div id="canvasSizeControl">
+				<h2>Canvas</h2>
 				<div id="canvasSizeRawSizes">
-					<label>Taille du canvas : </label>
+					<label>Taille : </label>
 					<input id="canvasWidth" placeholder="largeur" class="numberInput">
+					<button class="linkInputsButton" id="linkCanvasDimensionsButton"></button>
 					<input id="canvasHeight" placeholder="hauteur" class="numberInput">
-					<button id="reinitiateCanvasSizeButton">Réinitialiser</button>
-				</div>
-				<div id="canvasSizeMultiplicatorContainer">
-					<label>Multiplicateur : </label>
-					<input id="canvasSizeMultiplicator" placeholder="1">
 				</div>
 			</div>
-		</div>
-		<div id="gridControlContainer">
-			<div id="gridPosControl">
-				<label>Position de la grille : </label>
-				<input id="xGrid" placeholder="x" class="numberInput">
-				<input id="yGrid" placeholder="y" class="numberInput">
+		</section>
+		<section id="imageControl">
+			<h2>Image</h2>
+			<div id="imagePositionControl">
+				<label>Position :</label>
+				<input id="imageX" placeholder="x" class="numberInput">
+				<input id="imageY" placeholder="y" class="numberInput">
 			</div>
-			<div id="spritesDimControl">
-				<label>Dimensions des sprites : </label>
-				<input id="xScale" placeholder="largeur" class="numberInput">
-				<input id="yScale" placeholder="hauteur" class="numberInput">
+			<div id="imageDimensionsControl">
+				<label>Taille :</label>
+				<input id="imageWidth" placeholder="largeur" class="numberInput">
+				<button class="linkInputsButton" id="linkImageDimensionsButton"></button>
+				<input id="imageHeight" placeholder="hauteur" class="numberInput">
+				<button id="imageReinitDimButton" class="reinitButton"></button>
 			</div>
-			<div id="separatorsDimControl">	
-				<label>Dimensions des séparateurs : </label>
-				<input id="xSeparator" placeholder="largeur" class="numberInput">
-				<input id="ySeparator" placeholder="hauteur" class="numberInput">
-			</div>
-		</div>
-
+		</section>
 	</div>
 </body>
 </html>

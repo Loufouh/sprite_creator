@@ -2,25 +2,23 @@
 
 let canvas;
 
-let widthImageInput;
-let heightImageInput;
+let displayImageDim = new Vector(0, 0);
 
 let widthCanvasInput;
 let heightCanvasInput;
-let reinitiateCanvasSizeButton;
-let canvasSizeMultiplicator;
+let linkButtonCanvasDim;
 
-let xGridInput;
-let yGridInput;
+let xImageInput;
+let yImageInput;
+let linkButtonImagePos;
 
-let xScaleInput;
-let yScaleInput;
+let widthImageInput;
+let heightImageInput;
+let linkButtonImageDim;
 
-let xSeparatorInput;
-let ySeparatorInput;
+let reinitDimImageButton;
 
 let inputImage;
-let loadButton;
 
 let currentImg = undefined;
 
@@ -29,55 +27,46 @@ window.onload = init;
 function init() {
 	initElements();
 	declareListeners();
-	background(52);
-	inputImage.addEventListener("change", loadImage);
+	draw();
 }
 
 function initElements() {
 	initCanvas();
+	initLinkButtons();
 	
-	widthImageInput = document.querySelector("#imageWidth");
-	heightImageInput = document.querySelector("#imageHeight");
-
 	widthCanvasInput = document.querySelector("#canvasWidth");
 	heightCanvasInput = document.querySelector("#canvasHeight");
-	reinitiateCanvasSizeButton = document.querySelector("#reinitiateCanvasSizeButton");
-	canvasSizeMultiplicator = document.querySelector("#canvasSizeMultiplicator");
-	
-	xGridInput = document.querySelector("#xGrid");
-	yGridInput = document.querySelector("#yGrid");
+	linkButtonCanvasDim = document.querySelector("#linkCanvasDimensionsButton");
 
-	xScaleInput = document.querySelector("#xScale");
-	yScaleInput = document.querySelector("#yScale");
-	
-	xSeparatorInput = document.querySelector("#xSeparator");
-	ySeparatorInput = document.querySelector("#ySeparator");
-	
+	xImageInput = document.querySelector("#imageX");
+	yImageInput = document.querySelector("#imageY");
+	linkButtonImagePos = document.querySelector("#linkImagePositionButton");
+
+	widthImageInput = document.querySelector("#imageWidth");
+	heightImageInput = document.querySelector("#imageHeight");
+	linkButtonImageDim = document.querySelector("#linkImageDimensionsButton");
+	reinitDimImageButton = document.querySelector("#imageReinitDimButton");
+
 	inputImage = document.querySelector("#imageLoader");
-	loadButton = document.querySelector("#loadButton");
 }
 
 function declareListeners() {
-	widthCanvasInput.addEventListener("change", draw);
-	heightCanvasInput.addEventListener("change", draw);
-	reinitiateCanvasSizeButton.addEventListener("click", function() {
-		widthCanvasInput.value = widthImageInput.value;
-		heightCanvasInput.value = heightImageInput.value;
-		canvasSizeMultiplicator.value = 1;
+	inputImage.addEventListener("change", loadImage);
+
+	widthCanvasInput.addEventListener("change", updateCanvasDim);
+	heightCanvasInput.addEventListener("change", updateCanvasDim);
+
+	xImageInput.addEventListener("change", updateDisplayImagePos);
+	yImageInput.addEventListener("change", updateDisplayImagePos);
+
+	widthImageInput.addEventListener("change", updateDisplayImageDim);
+	heightImageInput.addEventListener("change", updateDisplayImageDim);
+
+	reinitDimImageButton.addEventListener("click", () => {
+		widthImageInput.value = currentImg.width;
+		heightImageInput.value = currentImg.height;
 		draw();
 	});
-	canvasSizeMultiplicator.addEventListener("change", draw);
-
-	xGridInput.addEventListener("change", draw);
-	yGridInput.addEventListener("change", draw);
-
-	xScaleInput.addEventListener("change", draw);
-	yScaleInput.addEventListener("change", draw);
-	
-	xSeparatorInput.addEventListener("change", draw);
-	ySeparatorInput.addEventListener("change", draw);
-	xSeparatorInput.addEventListener("change", draw);
-	loadButton.addEventListener("click", loadImage);
 }
 
 function initCanvas() {
@@ -87,12 +76,23 @@ function initCanvas() {
 	canvas.width = canvas.height*1.618;
 }
 
+function initLinkButtons() {
+	let linkButtons = document.querySelectorAll(".linkInputsButton");
+	
+	for(let button of linkButtons)
+		button.addEventListener("click", function() {
+			toggleClass(this, "off");
+		});
+}
+
 function loadImage() {
 	let blobURL = URL.createObjectURL(inputImage.files[0]);
 
 	currentImg = new Image();
 	currentImg.onload = function() {
 		URL.revokeObjectURL(blobURL);
+		xImageInput.value = 0;
+		yImageInput.value = 0;
 		widthImageInput.value = currentImg.width;
 		heightImageInput.value = currentImg.height;
 		widthCanvasInput.value = currentImg.width;
@@ -103,40 +103,44 @@ function loadImage() {
 	inputImage.value = "";
 }
 
-function draw() {
-	if(currentImg != undefined) {
-		let gridX = (xGridInput.value !== "")? parseInt(xGridInput.value) : 0;
-		let gridY = (yGridInput.value !== "")? parseInt(yGridInput.value) : 0;
-	
-		let scaleX = (xScaleInput.value !== "" && parseInt(xScaleInput.value) > 0)? parseInt(xScaleInput.value) : 10;
-		let scaleY = (yScaleInput.value !== "" && parseInt(yScaleInput.value) > 0)? parseInt(yScaleInput.value) : 10;
-	
-		let separatorX = (xSeparatorInput.value !== "" && parseInt(xSeparatorInput.value) >= 0)? parseInt(xSeparatorInput.value) : 0;
-		let separatorY = (ySeparatorInput.value !== "" && parseInt(ySeparatorInput.value) >= 0)? parseInt(ySeparatorInput.value) : 0;
-	
-		if(canvasSizeMultiplicator.value !== "") {
-			canvas.width = parseInt(canvasSizeMultiplicator.value)*currentImg.width;
-			canvas.height = parseInt(canvasSizeMultiplicator.value)*currentImg.height;
-		
-			widthCanvasInput.value = canvas.width;
-			heightCanvasInput.value = canvas.height;
-		}
-	
-		canvas.width = (widthCanvasInput.value !== "" && parseInt(widthCanvasInput.value) > 0)? parseInt(widthCanvasInput.value): 700;
-		canvas.height = (heightCanvasInput.value !== "" && parseInt(heightCanvasInput.value) > 0)? parseInt(heightCanvasInput.value): 350;
-		
-		drawImage(currentImg, 0, 0, currentImg.width, currentImg.height, 0, 0, canvas.width, canvas.height);
-	
-		stroke(0);
-		strokeWeight(1);
-	
-		grid(new Vector(gridX, gridY),
-		     new Vector(scaleX, scaleY),
-		     new Vector(separatorX, separatorY),
-		     new Vector(canvas.width, canvas.height));
-	} else {
-		background(52);
+function updateCanvasDim() {
+	if(!linkButtonCanvasDim.classList.contains("off")) {
+		let ratio = canvas.width/canvas.height;
+
+		if(this === widthCanvasInput)
+			heightCanvasInput.value = widthCanvasInput.value/ratio;
+		else
+			widthCanvasInput.value = heightCanvasInput.value*ratio;
 	}
+	canvas.width = (widthCanvasInput.value !== "" && parseInt(widthCanvasInput.value) > 0)? parseInt(widthCanvasInput.value): 700;
+	canvas.height = (heightCanvasInput.value !== "" && parseInt(heightCanvasInput.value) > 0)? parseInt(heightCanvasInput.value): 350;
+	
+	draw();
 }
 
+function updateDisplayImagePos() {
+	xImageInput.value = (xImageInput.value !== "")? parseInt(xImageInput.value): 0;
+	yImageInput.value = (yImageInput.value !== "")? parseInt(yImageInput.value): 0;
+	draw();
+}
+
+function updateDisplayImageDim() {
+	if(linkButtonImageDim.classList.contains("off")) {
+		let ratio = displayImageDim.x/displayImageDim.y;
+
+		if(this === widthImageInput)
+			heightImageInput.value = widthImageInput.value/ratio;
+		else
+			widthImageInput.value = heightImageInput.value*ratio;
+	}
+	displayImageDim.x = (widthImageInput.value !== "" && parseInt(widthImageInput.value) > 0)? parseInt(widthImageInput.value): displayImageDim.x;
+	displayImageDim.y = (heightImageInput.value !== "" && parseInt(heightImageInput.value) > 0)? parseInt(heightImageInput.value): displayImageDim.y;
+	draw();
+}
+
+function draw() {
+	background(52);
+	if(currentImg !== undefined)
+		drawImage(currentImg, 0, 0, currentImg.width, currentImg.height, 0, 0, canvas.width, canvas.height);
+}
 
