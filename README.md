@@ -1,1 +1,1 @@
-# Sprite splitter
+# Sprite creator
