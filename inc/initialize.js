@@ -67,6 +67,10 @@ function declareListeners() {
 		heightImageInput.value = currentImg.height;
 		draw();
 	});
+
+	canvas.addEventListener("click", canvasLeftClick);
+	canvas.addEventListener("contextmenu", canvasRightClick);
+	canvas.addEventListener("mousemove", canvasOnMouseMove);
 }
 
 function initCanvas() {
@@ -97,14 +101,16 @@ function loadImage() {
 		heightImageInput.value = currentImg.height;
 		widthCanvasInput.value = currentImg.width;
 		heightCanvasInput.value = currentImg.height;
-		draw();
+		updateCanvasDim(false);
+		updateDisplayImagePos();
+		updateDisplayImageDim(false);
 	};
 	currentImg.src = blobURL;
 	inputImage.value = "";
 }
 
-function updateCanvasDim() {
-	if(!linkButtonCanvasDim.classList.contains("off")) {
+function updateCanvasDim(respectLinkButton=true) {
+	if(!linkButtonCanvasDim.classList.contains("off") && respectLinkButton) {
 		let ratio = canvas.width/canvas.height;
 
 		if(this === widthCanvasInput)
@@ -114,7 +120,6 @@ function updateCanvasDim() {
 	}
 	canvas.width = (widthCanvasInput.value !== "" && parseInt(widthCanvasInput.value) > 0)? parseInt(widthCanvasInput.value): 700;
 	canvas.height = (heightCanvasInput.value !== "" && parseInt(heightCanvasInput.value) > 0)? parseInt(heightCanvasInput.value): 350;
-	
 	draw();
 }
 
@@ -124,8 +129,8 @@ function updateDisplayImagePos() {
 	draw();
 }
 
-function updateDisplayImageDim() {
-	if(linkButtonImageDim.classList.contains("off")) {
+function updateDisplayImageDim(respectLinkButton=true) {
+	if(linkButtonImageDim.classList.contains("off") && respectLinkButton) {
 		let ratio = displayImageDim.x/displayImageDim.y;
 
 		if(this === widthImageInput)
@@ -141,6 +146,6 @@ function updateDisplayImageDim() {
 function draw() {
 	background(52);
 	if(currentImg !== undefined)
-		drawImage(currentImg, 0, 0, currentImg.width, currentImg.height, 0, 0, canvas.width, canvas.height);
+		drawImage(currentImg, 0, 0, currentImg.width, currentImg.height, xImageInput.value, yImageInput.value, displayImageDim.x, displayImageDim.y);
 }
 

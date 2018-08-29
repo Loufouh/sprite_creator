@@ -63,6 +63,5 @@ function drawImage(img, sx, sy, sWidth=img.width, sHeight=img.height, dx, dy, dW
 	} else {
 		ctx.drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 	}
-
 }
 
