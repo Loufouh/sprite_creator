@@ -129,7 +129,7 @@ function updateDisplayImagePos() {
 }
 
 function updateDisplayImageDim(respectLinkButton=true) {
-	if(linkButtonImageDim.classList.contains("off") && respectLinkButton) {
+	if(!linkButtonImageDim.classList.contains("off") && respectLinkButton) {
 		let ratio = displayImageDim.x/displayImageDim.y;
 
 		if(this === widthImageInput)
