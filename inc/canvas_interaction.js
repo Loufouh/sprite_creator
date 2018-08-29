@@ -48,7 +48,5 @@ function canvasOnMouseMove(evt) {
 		targetContext.rect(rectPos.x, rectPos.y, rectDim.x, rectDim.y);
 		targetContext.closePath();
 		drawShape(targetContext);
-		console.log(firstClickPos.x + " ; " + firstClickPos.y)
-
 	}
 }
