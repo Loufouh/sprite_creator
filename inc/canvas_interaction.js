@@ -43,6 +43,7 @@ function canvasOnMouseMove(evt) {
 		draw();
 		noFill();
 		stroke(new Color(255, 255, 150));
+		strokeWeight(1);
 
 		targetContext.beginPath();
 		targetContext.rect(rectPos.x, rectPos.y, rectDim.x, rectDim.y);

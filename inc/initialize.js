@@ -76,7 +76,6 @@ function declareListeners() {
 function initCanvas() {
 	canvas = document.querySelector("#myCanvas");
 	setTargetContext(canvas.getContext("2d"));
-
 	canvas.width = canvas.height*1.618;
 }
 
