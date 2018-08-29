@@ -10,30 +10,31 @@ function canvasLeftClick(evt) {
 	if(!isFirstClicked) {
 		if(firstClickPos == undefined)
 			return error("Enter in second click part but firstClickPos is undefined");
-
+	
 		xImageInput.value -= (firstClickPos.x < clickPos.x)? firstClickPos.x : clickPos.x;
 		yImageInput.value -= (firstClickPos.y < clickPos.y)? firstClickPos.y : clickPos.y;
-
+	
 		widthCanvasInput.value = Math.abs(clickPos.x - firstClickPos.x);
 		heightCanvasInput.value = Math.abs(clickPos.y - firstClickPos.y);
 		updateCanvasDim(false);
-		
+
 	} else {
 		firstClickPos = clickPos;
 	}
-
-	isFirstClicked = 1 - isFirstClicked;
+	
+		isFirstClicked = 1 - isFirstClicked;
 }
 
 function canvasRightClick() {
-	isFirstClicked = false;
+	isFirstClicked = true;
+	draw()
 }
 
 function canvasOnMouseMove(evt) {
-	let rect = evt.target.getBoundingClientRect();
-	let clickPos = new Vector(evt.clientX - rect.left, evt.clientY - rect.top);
 
 	if(!isFirstClicked) {
+		let rect = evt.target.getBoundingClientRect();
+		let clickPos = new Vector(evt.clientX - rect.left, evt.clientY - rect.top);
 		let rectPos = new Vector();
 		let rectDim = new Vector(Math.abs(firstClickPos.x - clickPos.x), Math.abs(firstClickPos.y - clickPos.y));
 
