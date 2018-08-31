@@ -1,8 +1,10 @@
 "use strict";
 
-let canvas;
-
 let displayImageDim = new Vector(0, 0);
+
+let inputImage;
+
+let canvas;
 
 let widthCanvasInput;
 let heightCanvasInput;
@@ -15,10 +17,12 @@ let linkButtonImagePos;
 let widthImageInput;
 let heightImageInput;
 let linkButtonImageDim;
-
 let reinitDimImageButton;
 
-let inputImage;
+let addImageButton;
+
+let spriteList;
+let generateSpriteSheetButton;
 
 let currentImg = undefined;
 
@@ -34,24 +38,31 @@ function initElements() {
 	initCanvas();
 	initLinkButtons();
 	
+	inputImage = document.querySelector("#imageLoader");
+
 	widthCanvasInput = document.querySelector("#canvasWidth");
 	heightCanvasInput = document.querySelector("#canvasHeight");
 	linkButtonCanvasDim = document.querySelector("#linkCanvasDimensionsButton");
 
 	xImageInput = document.querySelector("#imageX");
 	yImageInput = document.querySelector("#imageY");
-	linkButtonImagePos = document.querySelector("#linkImagePositionButton");
 
 	widthImageInput = document.querySelector("#imageWidth");
 	heightImageInput = document.querySelector("#imageHeight");
 	linkButtonImageDim = document.querySelector("#linkImageDimensionsButton");
 	reinitDimImageButton = document.querySelector("#imageReinitDimButton");
 
-	inputImage = document.querySelector("#imageLoader");
+	addImageButton = document.querySelector("#addImageButton");
+	spriteList = document.querySelector("#spriteList");
+	generateSpriteSheetButton = document.querySelector("#generateSpriteSheetButton");
 }
 
 function declareListeners() {
 	inputImage.addEventListener("change", loadImage);
+
+	canvas.addEventListener("click", canvasLeftClick);
+	canvas.addEventListener("contextmenu", canvasRightClick);
+	canvas.addEventListener("mousemove", canvasOnMouseMove);
 
 	widthCanvasInput.addEventListener("change", updateCanvasDim);
 	heightCanvasInput.addEventListener("change", updateCanvasDim);
@@ -67,10 +78,9 @@ function declareListeners() {
 		heightImageInput.value = currentImg.height;
 		draw();
 	});
-
-	canvas.addEventListener("click", canvasLeftClick);
-	canvas.addEventListener("contextmenu", canvasRightClick);
-	canvas.addEventListener("mousemove", canvasOnMouseMove);
+	
+	addImageButton.addEventListener("click", addSprite);
+	generateSpriteSheetButton.addEventListener("click", generateSpriteSheet);
 }
 
 function initCanvas() {
